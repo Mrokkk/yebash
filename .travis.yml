@@ -9,10 +9,9 @@ install:
     - sudo apt-get install g++-6 libboost-all-dev valgrind clang-3.8
     - sudo pip install codecov
     - sudo pip install gcovr
-    - sudo update-alternatives --remove-all llvm-cov
-    - sudo update-alternatives --remove-all llvm-profdata
-    - sudo update-alternatives --install /usr/bin/llvm-cov llvm-cov $(which llvm-cov-3.8)
-    - sudo update-alternatives --install /usr/bin/llvm-profdata llvm-profdata $(which llvm-profdata-3.8)
+    - sudo rm -rf $(which llvm-cov) $(which llvm-profdata)
+    - sudo ln -sf $(which llvm-cov-3.8) /usr/bin/llvm-cov
+    - sudo ln -sf $(which llvm-profdata-3.8) /usr/bin/llvm-profdata
 
 matrix:
     include:
