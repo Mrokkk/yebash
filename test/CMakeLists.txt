@@ -21,9 +21,9 @@ if (COVERAGE)
     if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
         add_custom_target(tests-cov
             DEPENDS tests
-            COMMAND LLVM_PROFILE_FILE=tests.profraw ./tests
-            COMMAND llvm-profdata merge tests.profraw -o tests.profdata
-            COMMAND llvm-cov report ./tests -instr-profile=tests.profdata)
+            COMMAND LLVM_PROFILE_FILE=tests.profdata ./tests
+            COMMAND llvm-profdata merge -instr tests.profdata -o merged.profdata
+            COMMAND llvm-cov report ./tests -instr-profile=merged.profdata)
     else()
         add_custom_target(tests-cov
             DEPENDS clean-coverage tests-run
