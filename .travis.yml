@@ -27,6 +27,7 @@ matrix:
 
 language: cpp
 script:
+    - which llvm-mc
     - ./ci.sh $JOB
 
 after_success:
