@@ -1,4 +1,5 @@
 sudo: required
+dist: trusty
 
 before_install:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
@@ -8,9 +9,6 @@ install:
     - sudo apt-get install g++-6 libboost-all-dev valgrind clang-3.8
     - sudo pip install codecov
     - sudo pip install gcovr
-    - sudo rm -rf /usr/local/clang-3.5.0
-    - sudo find /usr/bin -name 'llvm*' -not -name '*-3.8' -exec rm -rf {} \;
-    - sudo find $(dirname `which llvm-cov-3.8`) -name 'llvm*' -exec rename 's/-3.8//' {} \;
 
 matrix:
     include:
@@ -19,15 +17,12 @@ matrix:
             - JOB=coverage
         - env:
             - COMPILER=clang++-3.8
-            - JOB=coverage
         - env:
             - COMPILER=g++-6
               JOB=valgrind
 
 language: cpp
 script:
-    - which llvm-profdata
-    - which clang++
     - ./ci.sh $JOB
 
 after_success:
